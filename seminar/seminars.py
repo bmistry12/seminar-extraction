@@ -11,4 +11,3 @@ print(corpus2)
 tokens = nltk.word_tokenize(corpus2)
 print(tokens)
 from nltk.tag import UnigramTagger
-unigram_tagger = UnigramTagger(tokens)
