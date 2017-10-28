@@ -27,7 +27,6 @@ def tagTime(word , index):
     printWord = " "
     nextWord = tokens[index+1].upper()
     prevWord = tokens[index-1]
-    print("HI " + prevWord)
     if (prevWord == '-') :
         if (nextWord == 'AM' or nextWord == 'PM') :
             printWord = '<etime>' + word + nextWord + '</etime>'
