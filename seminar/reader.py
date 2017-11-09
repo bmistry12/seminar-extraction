@@ -17,7 +17,7 @@ def cls(): print ("\n" * 50)
 cls()
 message = 'Replace value of "path" with path to your data folder containing files from: https://canvas.bham.ac.uk/courses/27273/files/folder/Data?preview=4298143'
 
-path    = "seminars_training"
+path    = 'seminars_untagged'  ### REPLACE HERE!
 
 if path == message :
     print( path )

@@ -1,0 +1,17 @@
+<paragraph><sentence>
+ Type:     AI Seminar
+ Who:<speaker>      Dan Weld, University of Washington</speaker>
+ Topic:    Planning: Recent Results
+ Dates:    8-Feb-94
+ Time:     <stime>3:30</stime> p.m.
+ Place:    5409 Wean Hall
+ Host:     Michael Erdmann</sentence></paragraph>
+
+<paragraph><sentence>                        (not available as yet)</sentence></paragraph>
+
+<paragraph><sentence> FurtherDetails: For appointments: Phyllis Pomerantz (plp@cs) or (X8-7897)</sentence></paragraph>
+
+<paragraph><sentence>Dan Weld will arrive on Monday, Feb. 7 and will be scheduling appointments
+from 2:30 p.m. on into the evening, and all day on Tuesday.</sentence></paragraph>
+
+<paragraph><sentence>FurtherDetails: For appointments: Phyllis Pomerantz (plp@cs) or (X8-7897)</sentence></paragraph>
