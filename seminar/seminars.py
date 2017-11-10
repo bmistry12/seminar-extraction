@@ -1,7 +1,6 @@
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 import re
-import posTagger
 import ner
 from os import listdir
 from os.path import isfile, join
@@ -37,8 +36,8 @@ newDoc = list();
 for word in tokens :
     if (word.upper() != 'AM' or word.upper() != 'PM'):
         if re.match(timeReg, word):
-            newDoc.append(posTagger.tagTime(word, index))
-            print(posTagger.tagTime(word, index))
+            newDoc.append(ner.tagTime(word, index))
+            print(ner.tagTime(word, index))
         elif re.match(capitalReg, word):
             newDoc.append(ner.capital(word, index))
             print(ner.capital(word, index))
