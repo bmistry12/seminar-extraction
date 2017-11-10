@@ -7,7 +7,16 @@ daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 titles = ["Professor", "Prof", "Dr", "Doctor", "Mr", "Mrs", "Miss", "Ms", "prof", "professor", "dr", "doctor", "mr", "mrs", "miss", "ms"]
 punct = "!#$%&()*+,-.:;?@[\]^_`{|}~"
+locFile = "location.txt"
+speakFile = "speakers.txt"
 
+def checkFile(word, file):
+    with open(file) as f :
+        found = False
+        for line in f :
+            if line == word :
+                found = True
+        
 def capital (word, index):
     import seminars
     tokens = seminars.getTokens()
@@ -17,7 +26,11 @@ def capital (word, index):
     nextNextWord = tokens[index+2]
     name = word + ' ' + nextWord
     print("NAME:: " + name)
-    if (word in daysOfWeek) :
+    isInFile = checkFile(name, speakFile)
+    print(isInFile)
+    if (isInFile):
+        "WE HAVE A NAME IN THE FILE BITCHES"
+    elif (word in daysOfWeek) :
         return  ('<day>' +  word + '</day>')
     elif (word in months) :
         return ('<month>' +  word + '</month>')
