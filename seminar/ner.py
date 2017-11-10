@@ -49,7 +49,6 @@ def tagSpeakers (word):
 
 #tag locations - currently only those that exists in training data 
 def tagLocation (word,tokens, index) :
-    print("HI : " + word)
     theLocation = word
     jointWord = word
     i = 1
@@ -71,10 +70,16 @@ need to get rid of this somehow
 '''
     
 def capital (word, index):
+    print(word)
     if ((word in daysOfWeek) or (word in months)) :
+        print('1')
         avoidWords.append(word)
         return word
+    elif (word in avoidWords) :
+        print('2')
+        return word
     else :
+        print('3')
         import seminars
         tokens = seminars.getTokens()
         word2 = tokens[index+1]
@@ -82,13 +87,17 @@ def capital (word, index):
         join2 = word + ' ' + word2
         join3 = join2 + ' ' + word
         if (checkFile(join3, speakFile)):
+            print('4')
             return tagSpeakers(join3)
         elif (checkFile(join2, speakFile)):
+            print('5')
             return tagSpeakers(join2)
-        #elif (word not in avoidWords) :
         elif (checkFile(word, locFile)) :
+            print('6')
+            #can only be a new location if is not already avoided
             return (tagLocation(word, tokens, index))
         else :
-            avoidWords.append(word)
+            print('7')
             return word
+
 
