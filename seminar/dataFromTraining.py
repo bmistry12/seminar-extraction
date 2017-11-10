@@ -44,7 +44,7 @@ def getLocation() :
             p = (place.strip('< location >')).strip('</ location >')
             location.append(p)
 
-    locF = open('location.txt', 'a')
+    locF = open('location.txt', 'w')
     for a in location :
         locF.write('%s\n' % a)
     locF.close()
