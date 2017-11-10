@@ -19,3 +19,9 @@ def tagTime(word, index):
         printWord = '<stime>' + word + '</stime>'
     return printWord
 
+'''
+TO DO
+---------------------
+doesnt consider casese like
+12:00pm-1:00pm
+'''

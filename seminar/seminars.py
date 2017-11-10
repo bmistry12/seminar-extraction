@@ -17,18 +17,16 @@ corpus2 = nltk.data.load('seminars_training/8test.txt')
 print(corpus2) #print text just for purposes of checking
 
 sents = sent_tokenize(corpus2)
-print(sents)
-print ("-----------^sents^---------------------")
 #tokenise text
 tokens = nltk.word_tokenize(corpus2)
+
 
 def getTokens() :
     return tokens
 
 #list of regex used
-timeReg2 = '([0-9]+(\s|:|pm|am){1}[0-9]*$)'
-timeReg = '([0-9]+(\s|:|pm|am){1}[0-9]*(-)?[0-9]+(\s|:|pm|am){1}[0-9]*)'
-#capitalReg = '(([A-Z]{1}[a-z]+\s*)+)'
+timeReg = '([0-9]+(\s|:|pm|am){1}[0-9]*$)'
+#timeReg = '([0-9]+(\s|:|pm|am){1}[0-9]*(-)?[0-9]+(\s|:|pm|am){1}[0-9]*)'
 capitalReg = '(([A-Z]+[a-z]*)+)'
 
 #word index for for loop
@@ -42,24 +40,13 @@ for word in tokens :
             newDoc.append(posTagger.tagTime(word, index))
             print(posTagger.tagTime(word, index))
         elif re.match(capitalReg, word):
-            #newDoc.append(ner.capital(word, index))
+            newDoc.append(ner.capital(word, index))
             print(ner.capital(word, index))
         else :
-            #newDoc.append(word)
+            newDoc.append(word)
             print(word)
     index = index + 1
 
 #newDocs is currently just a list of words
-#print(newDoc)
+print(newDoc)
 
-'''
-def tagParagraphs(sents) :
-    for p in sents:
-        for s in p: 
-            p[p.index(s)] = "<sentence>" + s + "</sentence>"
-        paragraphs_sentences[paragraphs_sentences.index(p)] = "<paragraph>" + p + "</paragraph>"
-
-    lines = paragraphs_sentences
-    return lines
-tagParagraphs(sents)
-'''
