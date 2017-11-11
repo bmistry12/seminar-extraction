@@ -7,6 +7,7 @@ from os.path import isfile, join
 from nltk.tokenize import sent_tokenize, word_tokenize
 
 tokens = getFileToTag.getTokens()
+avoidWords = []
 
 def printStuff():
     print (' ----------------------------------------------------------')
@@ -30,11 +31,14 @@ newDoc = list()
 
 #loops through text and if it needs to be tagged calls correct method to tag it
 for word in tokens :
-    print(word)
-    if (word.upper() != 'AM' or word.upper() != 'PM'):
+    if (word.upper() == 'AM' or word.upper() == 'PM'):
+        avoidWords.append(word)
+    else :
         if re.match(timeReg, word):
             #matches to a time
             newDoc.append(ner.tagTime(word, index))
+        #elif (word == "SPEAKER"):
+        #    newDoc.append(ner.tagSpeaker(word, index, 2))
         elif re.match(capitalReg, word):
             #matches to a capital
             newDoc.append(ner.capital(word, index))

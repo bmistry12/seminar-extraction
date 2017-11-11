@@ -6,6 +6,7 @@ tokens = getFileToTag.getTokens()
 #used to filter out known capitals that may cause trouble
 daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+regexHERE = '([!-/]*[[-`]*[{-}]*)'
 locFile = "location.txt"
 speakFile = "speakers.txt"
 
@@ -45,8 +46,19 @@ need to get it to check against first words of each line only
 '''
 
 #tag speakers - currently only tags speakers who exist in training data
-def tagSpeakers (word):
-    return "<speaker> " + word + "</speaker>"
+def tagSpeaker (word, index, i):
+    isName = True
+    join = tokens[index+i]
+    toPrint = ' '
+    while isName :
+        if re.match(regexHERE, tokens[index+i]) :
+            toPrint = join
+            isName = False
+        else :
+            join = join + ' ' + tokens[index+i]
+            print("JOIN : " + join)
+            i = i + 1        
+    return word + ' ' + tokens[index+1] + ' ' + "<speaker> " + toPrint + "</speaker>"
 
 #tag locations - currently only those that exists in training data 
 def tagLocation (word,tokens, index) :
@@ -58,7 +70,7 @@ def tagLocation (word,tokens, index) :
         #keep iterating through until we get a phrase which is not a known location
         jointWord = jointWord + ' ' + tokens[index+i]
         if checkFile(jointWord, locFile) :
-            avoidWords.append(tokens[index+i])
+            #avoidWords.append(tokens[index+i])
             theLocation = theLocation + ' ' + tokens[index+i]
             i = i + 1
         else :
@@ -67,8 +79,8 @@ def tagLocation (word,tokens, index) :
                 #act of removing words which have now been tagged from original corpus
                 tokens[index+i] = "VOID"
                 i = i - 1
-            if tokens[index+i] in theLocation:
-                avoidWords.append(tokens[index+i])
+            #if tokens[index+i] in theLocation:
+             #   avoidWords.append(tokens[index+i])
             if theLocation == word :
                 return theLocation
     return "<location> " + theLocation + " </location>"
@@ -89,11 +101,11 @@ def capital(word, index) :
         if (checkFile(join3, speakFile)):
             tokens[index+1] = "VOID"
             tokens[index+2] = "VOID"
-            return tagSpeakers(join3)
+            return "<speaker> " + join3 + "</speaker>"
         #check for known names of length 2 (e.g ___ ____ )
         elif (checkFile(join2, speakFile)):
             tokens[index+1] = "VOID"
-            return tagSpeakers(join2)
+            return "<speaker> " + join2 + "</speaker>"
         elif (checkFile(word, locFile)) :
             return (tagLocation(word, tokens, index))
         else :
