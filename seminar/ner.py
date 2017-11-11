@@ -1,12 +1,16 @@
-import nltk
 import re
-from nltk.corpus import brown
-from nltk.corpus import treebank
+import nltk
+import getFileToTag
+
+tokens = getFileToTag.getTokens()
+#used to filter out known capitals that may cause trouble
+daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+locFile = "location.txt"
+speakFile = "speakers.txt"
 
 #tags any times correctly
 def tagTime(word, index):
-    import seminars
-    tokens = seminars.getTokens()
     printWord = " "
     nextWord = tokens[index+1].upper()
     prevWord = tokens[index-1]
@@ -22,19 +26,12 @@ def tagTime(word, index):
     return printWord
 
 '''
-TO DO
 ---------------------
-doesnt consider casese like
+|      TO DO        |
+---------------------
+doesnt consider cases like
 12:00pm-1:00pm
 '''
-
-daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-titles = ["Professor", "Prof", "Dr", "Doctor", "Mr", "Mrs", "Miss", "Ms", "prof", "professor", "dr", "doctor", "mr", "mrs", "miss", "ms"]
-punct = "!#$%&()*+,-.:;?@[\]^_`{|}~"
-locFile = "location.txt"
-speakFile = "speakers.txt"
-avoidWords = []
 
 #check to see if a word already exists in the training data text file
 def checkFile(word, file):
@@ -54,6 +51,7 @@ def tagLocation (word,tokens, index) :
     i = 1
     isLocation = True
     while isLocation :
+        #keep iterating through until we get a phrase which is not a known location
         jointWord = jointWord + ' ' + tokens[index+i]
         if checkFile(jointWord, locFile) :
             avoidWords.append(tokens[index+i])
@@ -61,43 +59,43 @@ def tagLocation (word,tokens, index) :
             i = i + 1
         else :
             isLocation = False
+            while (index+i) > index+1 :
+                #act of removing words which have now been tagged from original corpus
+                tokens[index+i] = "VOID"
+                i = i - 1
             if tokens[index+i] in theLocation:
                 avoidWords.append(tokens[index+i])
+            if theLocation == word :
+                return theLocation
     return "<location> " + theLocation + " </location>"
 '''
-still tags stuff like IN just because its in the text file somewhere
-need to get rid of this somehow
+I'm currently using void to represent removed words - this is because in some cases
+the entry being removed shouldn't be being removed - e.g. '('
 '''
-    
-def capital (word, index):
-    print(word)
-    if ((word in daysOfWeek) or (word in months)) :
-        print('1')
-        avoidWords.append(word)
-        return word
-    elif (word in avoidWords) :
-        print('2')
+
+def capital(word, index) :
+    if ((word in daysOfWeek) or (word in months)) : #filter out known capitals
         return word
     else :
-        print('3')
-        import seminars
-        tokens = seminars.getTokens()
         word2 = tokens[index+1]
         word3 = tokens[index+2]
         join2 = word + ' ' + word2
-        join3 = join2 + ' ' + word
+        join3 = join2 + ' ' + word3
+        #checking for known names of length 3 (e.g. dr __ ___ )
         if (checkFile(join3, speakFile)):
-            print('4')
+            tokens[index+1] = "VOID"
+            tokens[index+2] = "VOID"
             return tagSpeakers(join3)
+        #check for known names of length 2 (e.g ___ ____ )
         elif (checkFile(join2, speakFile)):
-            print('5')
+            tokens[index+1] = "VOID"
             return tagSpeakers(join2)
         elif (checkFile(word, locFile)) :
-            print('6')
-            #can only be a new location if is not already avoided
             return (tagLocation(word, tokens, index))
         else :
-            print('7')
             return word
 
-
+'''
+There may be occassions where names have a greater length than 3
+TO DO - Implement a similar method to the location checking for name
+'''
