@@ -38,7 +38,11 @@ def checkFile(word, file):
     with open(file) as f:
         if word in f.read() :
             return True
-    return False            
+    return False
+'''
+Doesn't work how it needs to -
+need to get it to check against first words of each line only
+'''
 
 #tag speakers - currently only tags speakers who exist in training data
 def tagSpeakers (word):
