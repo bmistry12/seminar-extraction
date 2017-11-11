@@ -45,6 +45,10 @@ for word in tokens :
             #print(word)
     index = index + 1
 
+print (' ---------------------------------------------------------')
+print (' |              UNTAGGED VERSION                         | ')
+print (' ---------------------------------------------------------')
+print(tokens)
 #newDocs is currently just a list of words
 print (' ---------------------------------------------------------')
 print (' |                TAGGED VERSION                         | ')
