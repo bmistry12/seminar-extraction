@@ -6,8 +6,12 @@ from os import listdir
 from os.path import isfile, join
 from nltk.tokenize import sent_tokenize, word_tokenize
 
+sents = getFileToTag.getSentences()
 tokens = getFileToTag.getTokens()
 avoidWords = []
+
+print("<------------------------------->")
+print(sents)
 
 def printStuff():
     print (' ----------------------------------------------------------')
@@ -37,8 +41,8 @@ for word in tokens :
         if re.match(timeReg, word):
             #matches to a time
             newDoc.append(ner.tagTime(word, index))
-        #elif (word == "SPEAKER"):
-        #    newDoc.append(ner.tagSpeaker(word, index, 2))
+        elif (word == "SPEAKER"):
+            newDoc.append(ner.tagSpeaker(word, index, 2))
         elif re.match(capitalReg, word):
             #matches to a capital
             newDoc.append(ner.capital(word, index))

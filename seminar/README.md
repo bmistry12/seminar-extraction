@@ -2,7 +2,8 @@
 
 1) Entity Tagging
    Currently tags:     Time, Location and Speaker
-   Still need to tag:  Sentences, Paragraphs
+   Still need to tag:  Sentences, Paragraphs - Although I am unsure how to go about doing this
+   
     dataFromTraining.py -> This class extracts tagged data from all of the training data (seminars_training/*.txt)
 						   The corpus is split up into sentences and tokenized using sents().
 						   There are two methods - getSpeakers() and getLocation().
@@ -27,10 +28,13 @@
 							                Once we reach a point where it no longer matches a value, we know the maximum location string has been found and so this is tagged
 											If this method isn't carried out, words such as 'center' will be tagged, despite it not being a full location name
 							capital() - This is the method called in seminars.py. Currently VOID is used to represent removed words - this is simply for error checking
-		    						   
+		
 
 2) Ontology Construction
    Not yet started
    Create a classificataion for announcements 
    Text file id for all announcements related to a specific topic
    Needs structured classificataion 
+   
+   ---> Use the TYPE amd TOPIC part of the email to identify the classificataion
+   
