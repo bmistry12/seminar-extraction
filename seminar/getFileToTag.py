@@ -13,6 +13,9 @@ print("Enter the number of the file you would like to tag : ");
 userFile = input()
 mypath = "seminars_training/" + userFile + ".txt"  
 
+#textFileID = 300
+#automatedpath "seminars_training/" + textFileId + ".txt"
+
 print("b : " + mypath)
 #Load the text file to tag
 corpus2 = nltk.data.load(mypath)
@@ -38,10 +41,15 @@ def doStuffWithData():
         print(corpus)
         paragraphs = []
         paragraphs = corpus.split("\n\n")
-        print("----paras------")
+        print("----paragraphs------")
         print(paragraphs)
         for paragraph in paragraphs :
             paragraph= re.sub("\n\n", "<paragraph> " + paragraph + " </paragraph>", paragraph)
         
-        
+
+def tagNextFile():
+    pass
     
+
+def outputNewFile():
+    newPath = "my_seminars_tagged/"

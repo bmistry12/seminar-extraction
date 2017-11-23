@@ -1,6 +1,7 @@
 import re
 import ner
 import nltk
+import pickle
 import getFileToTag
 from os import listdir
 from os.path import isfile, join
@@ -9,9 +10,14 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 sents = getFileToTag.getSentences()
 tokens = getFileToTag.getTokens()
 avoidWords = []
+tagger = pickle.load(open( 'pos_tagger.pkl', 'rb' ) )
+corpus = []
+for word in tokens :
+    corpus.append([word])
+tagged_corpus = tagger.tag_sents(corpus)
 
-print("<------------------------------->")
-print(sents)
+print("pos tagging ")
+print(tagged_corpus)
 
 def printStuff():
     print (' ----------------------------------------------------------')
@@ -33,6 +39,9 @@ capitalReg = '(([A-Z]+[a-z]*)+)'
 index = 0 #word index for for loop
 newDoc = list()
 
+print("_________________________________________")
+for [word] in tagged_corpus:
+    print(word)
 #loops through text and if it needs to be tagged calls correct method to tag it
 for word in tokens :
     if (word.upper() == 'AM' or word.upper() == 'PM'):
