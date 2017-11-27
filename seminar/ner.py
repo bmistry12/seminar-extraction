@@ -124,4 +124,7 @@ def checkForName(name):
         isName = True
     elif (name in title) :
         isName = True
-    
+    elif (wikification.query(name)) :
+        isName = True
+    else :
+        isName = False
