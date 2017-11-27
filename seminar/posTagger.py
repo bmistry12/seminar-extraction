@@ -28,7 +28,7 @@ for word, tag in tagged_corpus :
     print (word, ' -> ' , tag)
 
 '''
-#train_sents = treebank.tagged_sents()[:6000]]
+#training POS tagger using brown corpus
 train_sents = brown.tagged_sents()[4000:]
 unigram_tagger = UnigramTagger(train_sents, cutoff = 3)
 bigram_tagger = BigramTagger(train_sents, backoff=unigram_tagger)

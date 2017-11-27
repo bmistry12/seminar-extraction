@@ -115,3 +115,13 @@ def capital(word, index) :
 There may be occassions where names have a greater length than 3
 TO DO - Implement a similar method to the location checking for name
 '''
+
+def checkForName(name):
+    #add wikification into this
+    isName = False
+    title = ['Mr', 'Dr', 'Prof', 'Professor', 'Mrs', 'Miss', 'Ms']
+    if (checkFile(name, "names.male") or checkFile(name, "names.female") or checkFile(name, "names.family")):
+        isName = True
+    elif (name in title) :
+        isName = True
+    
