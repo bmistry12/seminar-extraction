@@ -37,23 +37,29 @@ def printStuff():
     print (' ---------------------------------------------------------')
     print(newDoc)
     
-def checkForNoneType(word, index):
-    if (re.match('NONE{1}', word)):
+def checkForNoneType(word):
+    print(word)
+    if (re.match('None{1}', word)):
         return True
         
 def foundNP(word, index2):
+    print(word)
     name = "";
     if (ner.checkForName(word))  :
+        print("<speaker>" + word + "</speaker>")
         prevWord = newCorpus[index2-1]
+        p1, p2 = prevWord
         nextWord = newCorpus[index2+1]
-        if (checkForNoneType(prevWord)):
-            if(ner.checkForName(prevWord)):
-                name = name + prevWord + " "
+        n1, n2 = nextWord
+        if (checkForNoneType(p2)):
+            if(ner.checkForName(p1)):
+                name = name + p1 + " "
                 tokens[index2-1] = "BAH"
         name = name + word + " "
-        if (checkForNoneType(nextWord)):
-            if(ner.checkForName(nextWord)):
-                name = name + nextWord + " "   
+        print(nextWord)
+        if (checkForNoneType(str(n2))):
+            if(ner.checkForName(n1)):
+                name = name + n1 + " "   
                 tokens[index2+1] = "BAH"
         print("THE NAME ? " + name)
         name = "<speaker> " + name  + " </speaker>"

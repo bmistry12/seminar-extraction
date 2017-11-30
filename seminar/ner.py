@@ -1,6 +1,7 @@
 import re
 import nltk
 import getFileToTag
+import wikification
 
 tokens = getFileToTag.getTokens()
 #used to filter out known capitals that may cause trouble
@@ -32,6 +33,7 @@ def tagTime(word, index):
 ---------------------
 doesnt consider cases like
 12:00pm-1:00pm
+
 '''
 
 #check to see if a word already exists in the training data text file
@@ -115,6 +117,9 @@ def capital(word, index) :
 There may be occassions where names have a greater length than 3
 TO DO - Implement a similar method to the location checking for name
 '''
+def wikify(name) :
+    wikification.execute(name)
+    return True
 
 def checkForName(name):
     #add wikification into this
@@ -124,7 +129,8 @@ def checkForName(name):
         isName = True
     elif (name in title) :
         isName = True
-    elif (wikification.query(name)) :
+    elif (wikify(name)) :
         isName = True
     else :
         isName = False
+    return isName
