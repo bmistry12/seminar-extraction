@@ -8,6 +8,7 @@ tokens = getFileToTag.getTokens()
 daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 title = ['Mr', 'Dr', 'Prof', 'Professor', 'Mrs', 'Miss', 'Ms']
+numReg = '[0-9]+'
 reg = '([!-/]*[[-`]*[{-}]*)' # I have no idea what this is for
 locFile = "training_data/location.txt"
 speakFile = "training_data/speakers.txt"
@@ -28,6 +29,33 @@ def tagTime(word, index):
         printWord = '<stime>' + word + '</stime>'
     return printWord
 
+def tagLocation(word, index):
+    theLocation = word
+    location = word
+    isLocation = True
+    i = 1
+    while isLocation :
+        #keep iterating through until there is no longer a location
+        nextWord = tokens[index+i]
+        if (re.matches(numReg, nextWord)):
+            theLocation = theLocation + ' ' + nextWord
+            i = i + 1
+        elif (checkFile(locFile, nextWord)):
+            theLocation = theLocation + ' ' + nextWord
+            i = i + 1
+        elif (nextWord.toUpper == "ROOM"):
+            theLocation = theLocation + ' ' + nextWord
+            i = i + 1
+        else:
+            isLocation = False
+    while (index+i) > index :
+        tokens[index+i] = 'BAH'
+        i = i - 1
+    return " <location> " + theLocation + "</location>"
+        
+    
+    
+    
 #check to see if a word already exists in a text file
 def checkFile(word, file):
     with open(file) as f:

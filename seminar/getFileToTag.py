@@ -9,14 +9,14 @@ This file is used to get the file to be tagged
 Will be editted so that a user can choose a file to tag
 It also deals with the tagging of sentences and paragraphs
 '''
-textFileID = 299
+textFileID = 300
 tokens = ""
 sents = ""
 mypath = ""
 print("Enter the number of the file you would like to tag : ");
 userFile = input()
-mypath = "seminars_test_data_test_untagged/" + userFile + ".txt"  
-
+mypath = "seminar_test_data/test_untagged/" + userFile + ".txt"  
+print(mypath)
 #regex for headers
 header1 = '<[0-9].+([a-z]{2}[0-9]{2})[+]{1}[@]{1}[A-z].*[0-9]{1}>'
 header2 = '<[0-9].+[a-z]{3}[+]{1}[@]{1}[A-z].*[0-9]{1}>'
@@ -24,7 +24,9 @@ header2 = '<[0-9].+[a-z]{3}[+]{1}[@]{1}[A-z].*[0-9]{1}>'
 #Load the text file to tag
 corpus2 = nltk.data.load(mypath)
 print(corpus2) #print text just for purposes of checking
-
+taggedPath = "seminar_test_data/test_tagged/" + userFile + ".txt"
+file = nltk.data.load(taggedPath)
+print(file)
 #tokenise text
 tokens = nltk.word_tokenize(corpus2)
 sents = sent_tokenize(corpus2)
@@ -80,7 +82,7 @@ def split():
         corpus = file.read()
         lines = corpus.split("\n")
         print(lines)
-        abstractReg = '[Aa]bstract\:'s
+        abstractReg = '[Aa]bstract\:\s'
         for line in lines :
             if (re.match(abstractReg, line)):
                 print("WE FOUND ABSTRACT")
@@ -107,3 +109,9 @@ def main():
     #tokenise text
     tokens = nltk.word_tokenize(corpus2)
     sents = sent_tokenize(corpus2)
+    print ("--------------------------------")
+    print ("|        Tagged Version         |")
+    print ("--------------------------------")
+    filePath = "seminar_test_data/test_tagged/" + textFileID + ".txt"
+    file = nltk.data.load(filePath)
+    print (file)                          

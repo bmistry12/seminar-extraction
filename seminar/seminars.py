@@ -26,9 +26,18 @@ for [word] in tagged_corpus:
 
 def checkForNoneType(word):
     print(word)
-    if (re.match('None{1}', word)):
+    if (re.match('None{1}', str(word))):
         return True
-        
+    
+def foundVP (word, index2):
+    if (word == "place"  or word == "Place" or word == "PLACE"):
+        print("location is coming up ")
+        #index = Place, index+1 = : therefore first place of location = index +2
+        location = ner.tagLocation(word, tokens[index2+2])
+        return "agr" +  word + tokens[index1] + location
+    else :
+        return word
+    
 def foundNP(word, index2):
     print(word)
     name = "";
@@ -66,7 +75,10 @@ replace = ""
 
 for tup in newCorpus :
     val , tag = tup
-    if (re.match('NP{1}', str(tag))): #Finding all noun parts!
+    if (re.match('VP{1}', str(tag))):
+        replace = foundVP(val, index2)
+        tokens[index2] = replace
+    elif (re.match('NP{1}', str(tag))): #Finding all noun parts!
         print("Found NP")
         replace = foundNP(val, index2)
         print("replace with: " + replace)
