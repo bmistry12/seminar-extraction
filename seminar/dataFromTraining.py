@@ -34,7 +34,7 @@ def getSpeakers() :
             s = (speaker.strip('< speaker >')).strip('</ speaker >') #strip of tags
             speakers.append(s)
     #add to speakers.txt text file
-    speakerF = open('speakers.txt', 'w')
+    speakerF = open('training_data/speakers.txt', 'w')
     for a in speakers :
         speakerF.write('%s\n' % a)
     speakerF.close()
@@ -51,7 +51,7 @@ def getLocation() :
             p = (place.strip('< location >')).strip('</ location >')
             location.append(p)
     #add to location.txt text file
-    locF = open('location.txt', 'w')
+    locF = open('training_data/location.txt', 'w')
     for a in location :
         locF.write('%s\n' % a)
     locF.close()

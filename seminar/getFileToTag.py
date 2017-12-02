@@ -9,19 +9,18 @@ This file is used to get the file to be tagged
 Will be editted so that a user can choose a file to tag
 It also deals with the tagging of sentences and paragraphs
 '''
+textFileID = 299
+tokens = ""
+sents = ""
 mypath = ""
 print("Enter the number of the file you would like to tag : ");
 userFile = input()
-mypath = "seminars_training/" + userFile + ".txt"  
-
-#textFileID = 300
-#automatedpath "seminars_training/" + textFileId + ".txt"
+mypath = "seminars_test_data_test_untagged/" + userFile + ".txt"  
 
 #regex for headers
 header1 = '<[0-9].+([a-z]{2}[0-9]{2})[+]{1}[@]{1}[A-z].*[0-9]{1}>'
 header2 = '<[0-9].+[a-z]{3}[+]{1}[@]{1}[A-z].*[0-9]{1}>'
 
-print("b : " + mypath)
 #Load the text file to tag
 corpus2 = nltk.data.load(mypath)
 print(corpus2) #print text just for purposes of checking
@@ -67,6 +66,8 @@ def doStuffWithData():
             paragraph= re.sub("\n\n", "<paragraph> " + paragraph + " </paragraph>", paragraph)
         
 '''
+def tagNextFile():
+    textFileID = textFileID + 1
 
 pos = 0
 def split():
@@ -79,7 +80,7 @@ def split():
         corpus = file.read()
         lines = corpus.split("\n")
         print(lines)
-        abstractReg = '[Aa]bstract\:'
+        abstractReg = '[Aa]bstract\:'s
         for line in lines :
             if (re.match(abstractReg, line)):
                 print("WE FOUND ABSTRACT")
@@ -94,9 +95,15 @@ def split():
         #paragraphs_sentences = list(map(sent_tokenizer.tokenize, paragraphs))
         
 
-def tagNextFile():
-    pass
-    
+def outputNewFile(fileID):
+    newPath = "my_seminars_tagged/" + fileID + ".txt"
 
-def outputNewFile():
-    newPath = "my_seminars_tagged/"
+def main():
+    tagNextFile()
+    path = "seminar_test_data/test_untagged/" + textFileId + ".txt"
+    corpus2 = nltk.data.load(mypath)
+    print(corpus2) #print text just for purposes of checking
+
+    #tokenise text
+    tokens = nltk.word_tokenize(corpus2)
+    sents = sent_tokenize(corpus2)

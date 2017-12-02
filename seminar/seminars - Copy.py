@@ -24,6 +24,19 @@ newCorpus = list()
 for [word] in tagged_corpus:
     newCorpus.append(word)
 
+def printStuff():
+    print (' ----------------------------------------------------------')
+    print (' |                TAGGED VERSION                           |')
+    print (' ----------------------------------------------------------')
+    #load in tagged version
+    corpus3 = nltk.data.load('seminars_training/8.txt')
+    print(nltk.word_tokenize(corpus3))
+    #newDocs is currently just a list of words
+    print (' ---------------------------------------------------------')
+    print (' |               MY TAGGED VERSION                        |')
+    print (' ---------------------------------------------------------')
+    print(newDoc)
+    
 def checkForNoneType(word):
     print(word)
     if (re.match('None{1}', word)):
@@ -32,7 +45,6 @@ def checkForNoneType(word):
 def foundNP(word, index2):
     print(word)
     name = "";
-    #first check for names
     if (ner.checkForName(word))  :
         print("<speaker>" + word + "</speaker>")
         prevWord = newCorpus[index2-1]
@@ -42,13 +54,13 @@ def foundNP(word, index2):
         if (checkForNoneType(p2)):
             if(ner.checkForName(p1)):
                 name = name + p1 + " "
-                tokens[index2-1] = ""
+                tokens[index2-1] = "BAH"
         name = name + word + " "
         print(nextWord)
         if (checkForNoneType(str(n2))):
             if(ner.checkForName(n1)):
                 name = name + n1 + " "   
-                tokens[index2+1] = ""
+                tokens[index2+1] = "BAH"
         print("THE NAME ? " + name)
         name = "<speaker> " + name  + " </speaker>"
     else :
@@ -62,6 +74,7 @@ capitalReg = '(([A-Z]+[a-z]*)+)'
 
 index = 0 #word index tokens for loop
 index2 = 0 #word index for tuple corpus
+newDoc = list()
 replace = ""
 
 for tup in newCorpus :
@@ -71,17 +84,31 @@ for tup in newCorpus :
         replace = foundNP(val, index2)
         print("replace with: " + replace)
         tokens[index2] = replace
-    else :
-        if (re.match(timeReg, val)):
-            print("Found time")
-            replace = ner.tagTime(val, index2)
-            print("replace with: " + replace)
-            tokens[index2] = replace
     index2 = index2 + 1
 
 print("_______________________")
 print (tokens)
-
+'''
+#loops through text and if it needs to be tagged calls correct method to tag it
+for word in tokens :
+    if (word.upper() == 'AM' or word.upper() == 'PM'):
+        avoidWords.append(word)
+    else :
+        if re.match(timeReg, word):
+            #matches to a time
+            newDoc.append(ner.tagTime(word, index))
+        elif (word == "SPEAKER"):
+            newDoc.append(ner.tagSpeaker(word, index, 2))
+        elif re.match(capitalReg, word):
+            #matches to a capital
+            newDoc.append(ner.capital(word, index))
+        else :
+            newDoc.append(word)
+    index = index + 1
+   
+print("----------------------")
+printStuff()
+'''
 
 
 
