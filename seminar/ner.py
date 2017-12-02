@@ -30,27 +30,30 @@ def tagTime(word, index):
     return printWord
 
 def tagLocation(word, index):
+    #we pass in index+2 where @index = Place
     theLocation = word
     location = word
     isLocation = True
     i = 1
     while isLocation :
         #keep iterating through until there is no longer a location
-        nextWord = tokens[index+i]
-        if (re.matches(numReg, nextWord)):
+        nextWord = str(tokens[index+i])
+        if (re.match(numReg, nextWord)):
             theLocation = theLocation + ' ' + nextWord
+            tokens[index+i] = ""
             i = i + 1
-        elif (checkFile(locFile, nextWord)):
+        elif (checkFile(nextWord, locFile)):
             theLocation = theLocation + ' ' + nextWord
+            tokens[index+i] = ""
             i = i + 1
-        elif (nextWord.toUpper == "ROOM"):
+        elif (nextWord.upper() == "ROOM"):
             theLocation = theLocation + ' ' + nextWord
+            tokens[index+i] = ""
             i = i + 1
         else:
             isLocation = False
-    while (index+i) > index :
-        tokens[index+i] = 'BAH'
-        i = i - 1
+    tokens[index] = ''
+    tokens[index-1] = ''
     return " <location> " + theLocation + "</location>"
         
     

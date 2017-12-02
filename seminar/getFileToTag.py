@@ -78,7 +78,7 @@ def split():
     and body      -- used for sentence and paragraph tagging
     '''
     index = 0
-    with open("seminars_training/8test.txt", "r") as file :
+    with open(taggedPath, "r") as file :
         corpus = file.read()
         lines = corpus.split("\n")
         print(lines)

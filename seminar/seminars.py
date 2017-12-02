@@ -7,6 +7,7 @@ from os import listdir
 from os.path import isfile, join
 from nltk.tokenize import sent_tokenize, word_tokenize
 
+location = ''
 sents = getFileToTag.getSentences()
 tokens = getFileToTag.getTokens()
 avoidWords = []
@@ -29,12 +30,15 @@ def checkForNoneType(word):
     if (re.match('None{1}', str(word))):
         return True
     
-def foundVP (word, index2):
+def foundVB (word, index2):
+    print(word)
     if (word == "place"  or word == "Place" or word == "PLACE"):
         print("location is coming up ")
         #index = Place, index+1 = : therefore first place of location = index +2
-        location = ner.tagLocation(word, tokens[index2+2])
-        return "agr" +  word + tokens[index1] + location
+        print(tokens[index2+2])
+        print(str(tokens[index2+2]))
+        location = ner.tagLocation(tokens[index2+2], index2+2)
+        return word + tokens[index2 + 1] + location
     else :
         return word
     
@@ -75,8 +79,8 @@ replace = ""
 
 for tup in newCorpus :
     val , tag = tup
-    if (re.match('VP{1}', str(tag))):
-        replace = foundVP(val, index2)
+    if (re.match('VB{1}', str(tag))):
+        replace = foundVB(val, index2)
         tokens[index2] = replace
     elif (re.match('NP{1}', str(tag))): #Finding all noun parts!
         print("Found NP")
@@ -91,6 +95,8 @@ for tup in newCorpus :
             tokens[index2] = replace
     index2 = index2 + 1
 
+
+#then go through once we reassemble and replace other occurances of said location
 print("_______________________")
 print (tokens)
 
