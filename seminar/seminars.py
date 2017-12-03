@@ -10,6 +10,8 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 location = ''
 sents = getFileToTag.getSentences()
 tokens = getFileToTag.getTokens()
+print("--------------tokens-------------")
+print(tokens)
 avoidWords = []
 tagger = pickle.load(open( 'pos_tagger.pkl', 'rb' ) )
 corpus = []
@@ -32,7 +34,7 @@ def checkForNoneType(word):
     
 def foundVB (word, index2):
     print(word)
-    if (word == "place"  or word == "Place" or word == "PLACE"):
+    if (word.upper() == "PLACE"):
         print("location is coming up ")
         #index = Place, index+1 = : therefore first place of location = index +2
         print(tokens[index2+2])
@@ -99,7 +101,11 @@ for tup in newCorpus :
 #then go through once we reassemble and replace other occurances of said location
 print("_______________________")
 print (tokens)
+print("_______________________")
+newDocument = ' '.join(tokens)
+a = ''.join(newDocument)
 
+getFileToTag.outputNewFile(a)
 
 
 

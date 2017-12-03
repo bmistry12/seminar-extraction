@@ -12,22 +12,6 @@ corpus = getFileToTag.getTokens()
 for word in corpus :
     corpus2.append([word])
 
-'''
-tagged_corpus = pos_tag(corpus)
-#this is trained using treebank
-print(tagged_corpus)
-nppReg = "([!-z]*, 'NNP')"
-randomShit = []
-#randomShit = [re.findall(nppReg, tagged_corpus)]
-#print(randomShit)
-
-for word, tag in tagged_corpus :
-    if (tag == 'None') :
-        #we have a word not known in training
-        print('none')
-    print (word, ' -> ' , tag)
-
-'''
 #training POS tagger using brown corpus
 train_sents = brown.tagged_sents()[4000:]
 unigram_tagger = UnigramTagger(train_sents, cutoff = 3)

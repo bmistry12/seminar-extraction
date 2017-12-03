@@ -12,7 +12,7 @@ numReg = '[0-9]+'
 reg = '([!-/]*[[-`]*[{-}]*)' # I have no idea what this is for
 locFile = "training_data/location.txt"
 speakFile = "training_data/speakers.txt"
-
+knownLocation = ""
 #tags any time - uses regex
 def tagTime(word, index):
     printWord = " "
@@ -54,9 +54,8 @@ def tagLocation(word, index):
             isLocation = False
     tokens[index] = ''
     tokens[index-1] = ''
+    knownLocation = theLocation
     return " <location> " + theLocation + "</location>"
-        
-    
     
     
 #check to see if a word already exists in a text file
@@ -97,6 +96,9 @@ def checkForLocation(word):
     isLocation = False
     if (checkFile(word, locFile)):
         #the word is in data extracted from original training set
+        isLocation = True
+    elif (word in knownLocation) :
+        #if we have already extracted a location via the PLACE/WHERE tag
         isLocation = True
     elif (wikify(word)):
         isLocation = True

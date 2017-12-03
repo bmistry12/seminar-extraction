@@ -16,7 +16,6 @@ mypath = ""
 print("Enter the number of the file you would like to tag : ");
 userFile = input()
 mypath = "seminar_test_data/test_untagged/" + userFile + ".txt"  
-print(mypath)
 #regex for headers
 header1 = '<[0-9].+([a-z]{2}[0-9]{2})[+]{1}[@]{1}[A-z].*[0-9]{1}>'
 header2 = '<[0-9].+[a-z]{3}[+]{1}[@]{1}[A-z].*[0-9]{1}>'
@@ -26,10 +25,33 @@ corpus2 = nltk.data.load(mypath)
 print(corpus2) #print text just for purposes of checking
 taggedPath = "seminar_test_data/test_tagged/" + userFile + ".txt"
 file = nltk.data.load(taggedPath)
-print(file)
 #tokenise text
-tokens = nltk.word_tokenize(corpus2)
+#tokens = nltk.word_tokenize(corpus2)
 sents = sent_tokenize(corpus2)
+
+
+pos = 0
+def tagParagraphs():
+    '''
+    splits corpus into header (based on abstract so not going to work with everything_
+    and body      -- used for sentence and paragraph tagging
+    '''
+    typeReg = '[A-z]+:'
+    taggedDoc = ""
+    index = 0
+    with open(mypath, "r") as file :
+        corpus = file.read()
+        paragraphs = corpus.split("\n\n")
+        i = 0
+        for para in paragraphs :
+            if (re.search(typeReg, para) == None) :
+                paragraphs[i] = ("<paragraph> " + para + " </paragraph>")
+            i = i + 1
+        newCorpus = '\n'.join(paragraphs)
+        tokens2 = nltk.word_tokenize(newCorpus)
+    return tokens2
+
+tokens = tagParagraphs()
 
 def getSentences():
     return sents
@@ -71,17 +93,9 @@ def doStuffWithData():
 def tagNextFile():
     textFileID = textFileID + 1
 
-pos = 0
-def split():
-    '''
-    splits corpus into header (based on abstract so not going to work with everything_
-    and body      -- used for sentence and paragraph tagging
-    '''
-    index = 0
-    with open(taggedPath, "r") as file :
-        corpus = file.read()
-        lines = corpus.split("\n")
-        print(lines)
+def split() :
+    pass
+'''
         abstractReg = '[Aa]bstract\:\s'
         for line in lines :
             if (re.match(abstractReg, line)):
@@ -95,10 +109,14 @@ def split():
         
         sent_tokenizer=nltk.data.load('tokenizers/punkt/english.pickle')
         #paragraphs_sentences = list(map(sent_tokenizer.tokenize, paragraphs))
-        
+'''        
 
-def outputNewFile(fileID):
-    newPath = "my_seminars_tagged/" + fileID + ".txt"
+def outputNewFile(contents):
+    newPath = "my_seminars_tagged/" + userFile + ".txt"
+    print("New tagged version being saved to " + newPath)
+    f = open(newPath, "w+")
+    f.write(contents)
+    f.close()
 
 def main():
     tagNextFile()
