@@ -43,31 +43,33 @@ def foundVB (word, index2):
         return word + tokens[index2 + 1] + location
     else :
         return word
-    
-def foundNP(word, index2):
+
+def nameCheck(word, index2):
     print(word)
     name = "";
     #first check for names
     if (ner.checkForName(word))  :
-        print("<speaker>" + word + "</speaker>")
-        prevWord = newCorpus[index2-1]
-        p1, p2 = prevWord
-        nextWord = newCorpus[index2+1]
-        n1, n2 = nextWord
-        if (checkForNoneType(p2)):
-            if(ner.checkForName(p1)):
-                name = name + p1 + " "
-                tokens[index2-1] = ""
-        name = name + word + " "
-        print(nextWord)
-        if (checkForNoneType(str(n2))):
-            if(ner.checkForName(n1)):
-                name = name + n1 + " "   
-                tokens[index2+1] = ""
-        print("THE NAME ? " + name)
-        name = "<speaker> " + name  + " </speaker>"
-    else :
-        name = word
+        twoBack = newCorpus[index2-2]
+        t1, t2 = twoBack
+        if (t1.upper() != "HOST") :
+            prevWord = newCorpus[index2-1]
+            p1, p2 = prevWord
+            nextWord = newCorpus[index2+1]
+            n1, n2 = nextWord
+            if (checkForNoneType(p2)):
+                if(ner.checkForName(p1)):
+                    name = name + p1 + " "
+                    tokens[index2-1] = ""
+            name = name + word + " "
+            print(nextWord)
+            if (checkForNoneType(str(n2))):
+                if(ner.checkForName(n1)):
+                    name = name + n1 + " "   
+                    tokens[index2+1] = ""
+            print("THE NAME ? " + name)
+            name = "<speaker>" + name  + "</speaker>"
+        else :
+            name = word
     return name
         
     
@@ -81,12 +83,17 @@ replace = ""
 
 for tup in newCorpus :
     val , tag = tup
-    if (re.match('VB{1}', str(tag))):
+    if (val.upper() == "WHO") :
+        nextTup = newCorpus[index2 + 2]
+        val2, tag2 = nextTup
+        replace = nameCheck(val2, index2+2)
+        tokens[index2+2] = replace
+    elif (re.match('VB{1}', str(tag))):
         replace = foundVB(val, index2)
         tokens[index2] = replace
     elif (re.match('NP{1}', str(tag))): #Finding all noun parts!
         print("Found NP")
-        replace = foundNP(val, index2)
+        replace = nameCheck(val, index2)
         print("replace with: " + replace)
         tokens[index2] = replace
     else :

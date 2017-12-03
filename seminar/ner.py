@@ -55,7 +55,7 @@ def tagLocation(word, index):
     tokens[index] = ''
     tokens[index-1] = ''
     knownLocation = theLocation
-    return " <location> " + theLocation + "</location>"
+    return "<location>" + theLocation + "</location>"
     
     
 #check to see if a word already exists in a text file

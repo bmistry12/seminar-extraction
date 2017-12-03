@@ -1,7 +1,8 @@
+import re
 import nltk
 from nltk import sent_tokenize
-import re
-
+from os import listdir
+from os.path import isfile, join
 '''
 extracts data from training data and puts it into the respective text files
 this is a stand alone python file - does not rely on others
@@ -13,8 +14,6 @@ spReg = '<\sspeaker\s>\s([!-z]+\s)+</\sspeaker\s>'
 locReg = '<\slocation\s>\s([!-z]+\s)+</\slocation\s>'
 
 #read from training data
-from os import listdir
-from os.path import isfile, join
 trainPath = "seminars_training"
 onlyfiles = [f for f in listdir(trainPath) if isfile(join(trainPath, f))]
 corpus_root = trainPath
@@ -56,8 +55,7 @@ def getLocation() :
         locF.write('%s\n' % a)
     locF.close()
 
-def getTimes():
-    pass
+
 '''
 There are still some adjustments to make to this
 e.g. split when there is an 'and'
