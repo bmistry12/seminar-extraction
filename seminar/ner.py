@@ -46,7 +46,7 @@ def tagLocation(word, index):
             theLocation = theLocation + ' ' + nextWord
             tokens[index+i] = ""
             i = i + 1
-        elif (nextWord.upper() == "ROOM"):
+        elif (nextWord.upper() == "ROOM" or nextWord.upper() == "HALL" or nextWord.upper() == ""):
             theLocation = theLocation + ' ' + nextWord
             tokens[index+i] = ""
             i = i + 1

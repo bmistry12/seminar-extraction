@@ -27,7 +27,6 @@ def run(query) :
   # If this is included as a module, you have access to the above function
   # without "running" the following piece of code.
   # Usually, you place functions in a file and their tests in chunks like below.
-  print("run")
   # This makes sure that any funny charecters (including spaces) in the query are
   # modified to a format that url's accept.
   query = urllib.parse.quote_plus( query )
@@ -47,7 +46,7 @@ def run(query) :
     # Convert the structured json string into a python variable 
   url_data = json.loads( url_data )
     # Pretty print
-  pprint( url_data )
+  #pprint( url_data )
 
     # Now we extract just the titles
   titles = [ i['title'] for i in url_data['query']['search'] ]

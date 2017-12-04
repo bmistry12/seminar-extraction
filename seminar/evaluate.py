@@ -98,7 +98,7 @@ while(notEnd) :
     print("accuracy for text file " + str(textFileID) + ": " + str(accuracy*100))
     fileNumber = fileNumber + 1
     overallAccuracy = overallAccuracy + accuracy
-    if(textFileID == 314):
+    if(textFileID == 340):
         notEnd = False
     else :
         textFileID = textFileID + 1
