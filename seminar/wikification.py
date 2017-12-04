@@ -47,18 +47,17 @@ def run(query) :
     # Convert the structured json string into a python variable 
   url_data = json.loads( url_data )
     # Pretty print
-  pprint( url_data )
+#  pprint( url_data )
 
     # Now we extract just the titles
   titles = [ i['title'] for i in url_data['query']['search'] ]
-  pprint( titles )
+ # pprint( titles )
 
     # Make sure we can plug these into urls:
   url_titles = [ urllib.parse.quote_plus(i) for i in titles ]
-  print("HI")
-  pprint( url_titles )
+  #print("HI")
+  #pprint( url_titles )
 
 def execute(name):
-  print("adaf " + name)
   query = name
   run(query)

@@ -117,19 +117,4 @@ def outputNewFile(contents):
     f = open(newPath, "w+")
     f.write(contents)
     f.close()
-
-def main():
-    tagNextFile()
-    path = "seminar_test_data/test_untagged/" + textFileId + ".txt"
-    corpus2 = nltk.data.load(mypath)
-    print(corpus2) #print text just for purposes of checking
-
-    #tokenise text
-    tokens = nltk.word_tokenize(corpus2)
-    sents = sent_tokenize(corpus2)
-    print ("--------------------------------")
-    print ("|        Tagged Version         |")
-    print ("--------------------------------")
-    filePath = "seminar_test_data/test_tagged/" + textFileID + ".txt"
-    file = nltk.data.load(filePath)
-    print (file)                          
+                 

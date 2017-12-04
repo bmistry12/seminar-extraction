@@ -8,7 +8,7 @@ from os.path import isfile, join
 from nltk.tokenize import sent_tokenize, word_tokenize
 
 location = ''
-sents = getFileToTag.getSentences()
+#sents = getFileToTag.getSentences()
 tokens = getFileToTag.getTokens()
 print("--------------tokens-------------")
 print(tokens)
