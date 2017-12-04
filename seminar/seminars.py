@@ -34,7 +34,7 @@ def checkForNoneType(word):
     
 def foundVB (word, index2):
     #print(word)
-    if (word.upper() == "PLACE"):
+    if (word.upper() == "PLACE" or word.lower() == "location" or word.lower() == "where"):
         #print("location is coming up ")
         #index = Place, index+1 = : therefore first place of location = index +2
         #print(tokens[index2+2])
@@ -88,7 +88,7 @@ for tup in newCorpus :
         val2, tag2 = nextTup
         replace = nameCheck(val2, index2+2)
         tokens[index2+2] = replace
-    elif (re.match('VB{1}', str(tag))):
+    elif (re.match('VB{1}', str(tag)) or val.lower() == "location" or val.lower() == "where"):
         replace = foundVB(val, index2)
         tokens[index2] = replace
     elif (re.match('NP{1}', str(tag))): #Finding all noun parts!

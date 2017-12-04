@@ -1,4 +1,4 @@
-import sys, re, http.client, urllib.request, urllib.parse, urllib.error, json
+import sys, http.client, urllib.request, urllib.parse, urllib.error, json
 
 from pprint import pprint
 
@@ -7,6 +7,7 @@ def get_url( domain, url ) :
   # Headers are used if you need authentication
   headers = {}
 
+  # If you know something might fail - ALWAYS place it in a try ... except
   try:
     conn = http.client.HTTPSConnection( domain )
     conn.request("GET", url, "", headers)
@@ -15,6 +16,7 @@ def get_url( domain, url ) :
     conn.close()
     return data 
   except Exception as e:
+    # These are standard elements in every error.
     print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
   # Failed to get data!
@@ -22,43 +24,42 @@ def get_url( domain, url ) :
 
 
 def run(query) :
-  isName = False
+  # If this is included as a module, you have access to the above function
+  # without "running" the following piece of code.
+  # Usually, you place functions in a file and their tests in chunks like below.
+  # This makes sure that any funny charecters (including spaces) in the query are
+  # modified to a format that url's accept.
   query = urllib.parse.quote_plus( query )
+
+    # Call our function.
   url_data = get_url( 'en.wikipedia.org', '/w/api.php?action=query&list=search&format=json&srsearch=' + query )
 
-  #graceful exit if we have failed.
+    # We know how our function fails - graceful exit if we have failed.
   if url_data is None :
     print( "Failed to get data ... Can not proceed." )
+      # Graceful exit.
     sys.exit()
 
-  # http.client socket returns bytes - we convert this to utf-8
+    # http.client socket returns bytes - we convert this to utf-8
   url_data = url_data.decode( "utf-8" ) 
 
-  # Convert the structured json string into a python variable 
+    # Convert the structured json string into a python variable 
   url_data = json.loads( url_data )
-  # Pretty print
+    # Pretty print
   #pprint( url_data )
-  isName = canBeName(url_data)
 
-  #Now we extract just the titles
+    # Now we extract just the titles
   titles = [ i['title'] for i in url_data['query']['search'] ]
-  pprint( titles )
+  #pprint( titles )
 
-  # Make sure we can plug these into urls:
+    # Make sure we can plug these into urls:
   url_titles = [ urllib.parse.quote_plus(i) for i in titles ]
+  #print("HI")
   #pprint( url_titles )
-  return isName
 
 def execute(name):
   query = name
-  isName = run(query)
-  return isName
+  run(query)
 
-def canBeName(data):
-  stringData = str(data)
-  bornReg = 'born\s(([0-z]+\,?\s?)+)'
-  dobs = re.findall(bornReg, stringData)
-  if (dobs != []) :
-    return True
-  else : 
-    return False
+def analyseData(data):
+  pass

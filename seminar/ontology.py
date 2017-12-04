@@ -1,30 +1,43 @@
 
-topic_words = getDictionary()
 class Ontology():
     def __init__(self) :
+        histWords = ['history']
+        chemWords = ['chemistry', 'elements']
+        phyWords = ['physics', 'NASA']
+        bioWords = ['biology', 'human']
+        robWords = ['robot', 'robotics', 'machines']
+        aiWords = ['AI', 'machine', 'robots', 'arfiticial', 'intelligence']
+        hciWords = ['HCI' 'human']
+        visWords = ['vision']
+        techWords = ['computing', 'technology', 'computer science', 'computer']
+        pureWords = ['engineering']
+        talkWords = ['talk', 'talks']
+        miscWords = []
         self.ontology = {
             'Top' : {
-                'arts' : {
-                    'history' : { 'topic_words' : ['history'] },                
-                },
-                'science' : {
-                    'chemistry' : { 'topic_words' : ['chemistry', 'elements' ] },
-                    'physics' : { 'topic_words' : ['physics', 'NASA' ] },
-                    'biology' : { 'topic_words' : ['biology', 'human'] },   
-                        
-                }
-                'engineering' : {
-                    'computing' : {
-                        'robotics' : { 'topic_words' : ['Robot', 'Robotics', 'machines' ] },
-                        'AI' : { 'topic_words' : ['AI', 'machine', 'robots', 'Arfiticial', 'intelligence' ] },
-                        'HCI' : { 'topic_words' : ['HCI'] },
-                        'vision' : { 'topic_words' : ['vision' ] },
-                        'computer_systems' : { 'topic_words' : ['System', 'Computer']}
-                        'other' : { 'topic_words' : ['computing', 'technology', 'computer science']}
-                     },
-                    'pure' : { 'topic_words' : ['engineering'] },   
-                } 'other' : { 'topic_words' : ['Talks'] },
-            }
+                "Arts": {
+                    "History": histWords
+                 },
+                 "Engineering": {
+                     "Computing": {
+                        "Robotics": robWords,
+                        "AI": aiWords,
+                        "HCI": hciWords,
+                        "Vision": visWords,
+                        "Tech": techWords
+                      },    
+                     "Pure": pureWords
+                 },
+                 "Science": {
+                     "Physics": phyWords,
+                     "Biology": bioWords,
+                     "Chemistry": chemWords
+                 },
+                 "Other": {
+                      "Talks": talkWords,
+                       "Misc": miscWords
+                 }
+             }
         }
 
 def main() :
@@ -34,14 +47,11 @@ def main() :
 def transverse(self, location=None, key=None):
     if location is None :
         location = self.ontology
-    keys = location.keys() :
+    keys = location.keys()
     if 'topic_words' in keys :
         self.traversal_info[key] = location[key]
         return
     for key in keys :
         self.traverse(location[key], key)
     return
-                                            
-def dictionary():
-    topic_words = {'arts': 'history', 'science':  'chemistry'   }
-    
+

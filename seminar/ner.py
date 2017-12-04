@@ -67,8 +67,10 @@ def checkFile(word, file):
 
 #calls wikification class
 def wikify(word) :
-    wikification.execute(word)
-    return True
+    print("HI")
+    boolean = wikification.execute(word)
+    print(word + "  " + str(boolean))
+    return boolean
 
 def checkForName(word):
     #add wikification into this

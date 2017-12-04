@@ -39,26 +39,30 @@ def tagParagraphs():
     typeReg = '[A-z]+:'
     taggedDoc = ""
     index = 0
+    abstract = ""
+    restOfText = ""
+    foundAbstract = False
     with open(mypath, "r") as file :
         corpus = file.read()
-        paragraphs = corpus.split("\n\n")
+        abstractReg = '[Aa]bstract\:\s*'
+        sent_tokenizer=nltk.data.load('tokenizers/punkt/english.pickle')
+        newSents = sent_tokenizer.tokenize(corpus)
+        for line in newSents :
+            if (not foundAbstract and re.search(abstractReg, line) != None) :
+                abstract = line
+                foundAbstract = True
+            else :
+                restOfText = restOfText + "<sentence>" + line + "</sentence>"
+
+        paragraphs = restOfText.split("\n\n")
         i = 0
         for para in paragraphs :
             if (re.search(typeReg, para) == None) :
                 paragraphs[i] = ("<paragraph>" + para + "</paragraph>")
             i = i + 1
-        newCorpus = '\n'.join(paragraphs)
-        sentences = newCorpus.split(". ")
-        #splits in situations where its _._____
-        i = 0
-        for sent in sentences :
-            if (re.match(header, sent)):
-                if (re.search(typeReg, sent) == None):
-                    sentences[i] = ("<sentence>" + sent + ". </sentences>")
-            i = i + 1
-        newCorpus2 = ''.join(sentences)
+
+        newCorpus2 = abstract + '\n'.join(paragraphs)
         tokens2 = nltk.word_tokenize(newCorpus2)
-        print(newCorpus2)
     return tokens2
 
 tokens = tagParagraphs()
@@ -128,3 +132,14 @@ def outputNewFile(contents):
     f.write(contents)
     f.close()
                  
+
+    ''' sentences = restOfText.split(".")
+        print(restOfText)
+        #splits in situations where its _._____
+        i = 0
+        for sent in sentences :
+            if (re.match(header, sent) == None):
+                if (re.search(typeReg, sent) == None):
+                    sentences[i] = ("<sentence>" + sent + ".</sentences>")
+            i = i + 1
+        newCorpus = ' '.join(sentences)'''
