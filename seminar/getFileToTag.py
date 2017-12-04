@@ -19,7 +19,7 @@ mypath = "seminar_test_data/test_untagged/" + userFile + ".txt"
 #regex for headers
 header1 = '<[0-9].+([a-z]{2}[0-9]{2})[+]{1}[@]{1}[A-z].*[0-9]{1}>'
 header2 = '<[0-9].+[a-z]{3}[+]{1}[@]{1}[A-z].*[0-9]{1}>'
-
+header = '<([0-9]+.)*[A-z]*\+?\@?([1-z]*.)*>'
 #Load the text file to tag
 corpus2 = nltk.data.load(mypath)
 print(corpus2) #print text just for purposes of checking
@@ -45,10 +45,20 @@ def tagParagraphs():
         i = 0
         for para in paragraphs :
             if (re.search(typeReg, para) == None) :
-                paragraphs[i] = ("<paragraph> " + para + " </paragraph>")
+                paragraphs[i] = ("<paragraph>" + para + "</paragraph>")
             i = i + 1
         newCorpus = '\n'.join(paragraphs)
-        tokens2 = nltk.word_tokenize(newCorpus)
+        sentences = newCorpus.split(". ")
+        #splits in situations where its _._____
+        i = 0
+        for sent in sentences :
+            if (re.match(header, sent)):
+                if (re.search(typeReg, sent) == None):
+                    sentences[i] = ("<sentence>" + sent + ". </sentences>")
+            i = i + 1
+        newCorpus2 = ''.join(sentences)
+        tokens2 = nltk.word_tokenize(newCorpus2)
+        print(newCorpus2)
     return tokens2
 
 tokens = tagParagraphs()
