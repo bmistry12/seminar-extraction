@@ -96,6 +96,8 @@ for tup in newCorpus :
         replace = nameCheck(val, index2)
         print("replace with: " + replace)
         tokens[index2] = replace
+    elif (val in location) :
+        print("OIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII " + val + " " + location)
     else :
         if (re.match(timeReg, val)):
             print("Found time")

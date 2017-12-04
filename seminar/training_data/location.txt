@@ -78,8 +78,7 @@ Adamson Wing , Baker H
 Hamerschlag Hall 1112
 1295 Biomedical Science Tower
 Scaife Hall Room 618
-106 Allen Hall , Pitt 
-6327 Wean Hall , 6th Floor Lounge
+106 Allen Hall , Pitt </ location > Condensed Matter Coffee Hour , 4 : 00 pm , < location > 6327 Wean Hall , 6th Floor Lounge
 316 Allen Hall , P
 Doherty Hall 1112
 Doherty Hall 1112
@@ -226,8 +225,8 @@ Mellon Institute Auditorium
 3rd Floor Conference room Mellon Institute Building
 Adamson Wing , Baker H
 Wean 7500
-Student Center Room 207
-Student Center Room 210
+Student Center , Room 207
+Student Center , Room 210
 3005 Hamburg H
 Wean Hall 5409
 Wean Hall 5409
@@ -286,8 +285,7 @@ Student Center Room 207
 Hamburg Hall 1001
 Porter Hall A18C
 Scaife Auditorium ( Room 125
-Hamburg Hall Auditorium 
-EDRC Conference Room
+Hamburg Hall Auditorium </ location > ( pizza in the < location > EDRC Conference Room
 Hamburg Hall 1002
 Skibo Ballroom
 HH B131
