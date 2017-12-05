@@ -108,7 +108,7 @@ while(notEnd) :
     overallLocAcc = overallLocAcc + accLoc
     overallSTimeAcc = overallSTimeAcc + accSTime
     overallETimeAcc = overallETimeAcc + accETime
-    if(textFileID == 360):
+    if(textFileID == 484):
         notEnd = False
     else :
         textFileID = textFileID + 1

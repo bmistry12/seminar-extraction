@@ -1,6 +1,13 @@
+import getFileToTag
 import seminars
+def main() :
+  run = True
+  id = 301
+  while (run) :
+    print(id)
+    getFileToTag.setID(id)
+    getFileToTag.main()
+    seminars = Seminars()
 
-run = True
 
-while (run) :
-  seminars
+    id = id + 1

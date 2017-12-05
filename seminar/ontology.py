@@ -40,18 +40,18 @@ class Ontology():
              }
         }
 
-def main() :
-    ontology = Ontology()
-    
+    def main() :
+        ontology = Ontology()
+        print(ontology)
 
-def transverse(self, location=None, key=None):
-    if location is None :
-        location = self.ontology
-    keys = location.keys()
-    if 'topic_words' in keys :
-        self.traversal_info[key] = location[key]
+    def transverse(self, location=None, key=None):
+        if location is None :
+            location = self.ontology
+        keys = location.keys()
+        if 'topic_words' in keys :
+            self.traversal_info[key] = location[key]
+            return
+        for key in keys :
+            self.traverse(location[key], key)
         return
-    for key in keys :
-        self.traverse(location[key], key)
-    return
 
