@@ -46,7 +46,7 @@ def tagLocation(word, index):
             theLocation = theLocation + ' ' + nextWord
             tokens[index+i] = ""
             i = i + 1
-        elif (nextWord.upper() == "ROOM" or nextWord.upper() == "HALL" or nextWord.upper() == ""):
+        elif (nextWord.upper() == "ROOM" or nextWord.upper() == "HALL"):
             theLocation = theLocation + ' ' + nextWord
             tokens[index+i] = ""
             i = i + 1
@@ -73,7 +73,6 @@ def wikify(word) :
     return boolean
 
 def checkForName(word):
-    #add wikification into this
     isName = False
     if ((word in daysOfWeek) or (word in months)) :
         #filter out known words that will be passed through

@@ -55,6 +55,7 @@ def execute(name):
   return isName
 
 def canBeName(data):
+  #if it could be a name there will be an entry that includes a 'born' segment
   stringData = str(data)
   bornReg = 'born\s(([0-z]+\,?\s?)+)'
   dobs = re.findall(bornReg, stringData)
