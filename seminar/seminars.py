@@ -12,6 +12,7 @@ tokens = getFileToTag.getTokens()
 print("--------------tokens-------------")
 print(tokens)
 avoidWords = []
+#load pos tagger
 tagger = pickle.load(open( 'pos_tagger.pkl', 'rb' ) )
 corpus = []
 for word in tokens :

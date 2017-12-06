@@ -4,11 +4,9 @@ import nltk
 evaluate my tagged version against the actual tagged version
 
 TP correctly retrieved instances
-TN correctly ignored non-instances
+TN correctly ignored non-instances - for this assignment i will ignore this
 FP incorrectly classed instances
 FN actual instances which are missed.
-
-
 '''
 spReg = '<speaker>(([A-z]+\s?)+)</speaker>'
 locReg = '<location>(([0-z]+\s?)+)</location>'
@@ -30,9 +28,6 @@ def getTP(actual, generated):
             count = count + 1
     return count
         
-def getTN(actual, generated):
-    return 0
-
 def getFP(actual, generated):
     count = 0
     for elem in generated :
@@ -57,7 +52,6 @@ def strip(theList):
 notEnd = True
 textFileID = 301
 overallAccuracy = 0
-maxAcc = 0
 overallSpeakAcc = 0
 overallLocAcc = 0
 overallSTimeAcc = 0
@@ -180,7 +174,7 @@ while(notEnd) :
     overallETimeAcc = overallETimeAcc + etimeAcc
     overallPrec = overallPrec + precision
     overallRec = overallRec + recall
-    ovareallF = overallF + fmes
+    overallF = overallF + fmes
     if(textFileID == 484):
         notEnd = False
     else :
@@ -191,7 +185,6 @@ print("Speaker Accuracy : " + str(overallSpeakAcc * 100 / fileNumber))
 print("Location Accuracy : " + str(overallLocAcc * 100 / fileNumber))
 print("Start Time Accuracy : " + str(overallSTimeAcc * 100 / fileNumber))
 print("End Time Accuracy : " + str(overallETimeAcc * 100 / fileNumber))
-print("Highest Overall Accuracy: " + str(maxAcc*100))
 print("Precision: " + str(overallPrec*100 / fileNumber))
 print("Recall: " + str(overallRec*100 / fileNumber))
 print("F: " + str(overallF*100 / fileNumber))

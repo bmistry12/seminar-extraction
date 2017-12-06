@@ -8,11 +8,12 @@ tokens = getFileToTag.getTokens()
 daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 title = ['Mr', 'Dr', 'Prof', 'Professor', 'Mrs', 'Miss', 'Ms']
+
 numReg = '[0-9]+'
-reg = '([!-/]*[[-`]*[{-}]*)' # I have no idea what this is for
 locFile = "training_data/location.txt"
 speakFile = "training_data/speakers.txt"
 knownLocation = ""
+
 #tags any time - uses regex
 def tagTime(word, index):
     printWord = " "
@@ -67,9 +68,7 @@ def checkFile(word, file):
 
 #calls wikification class
 def wikify(word) :
-    print("HI")
     boolean = wikification.execute(word)
-    print(word + "  " + str(boolean))
     return boolean
 
 def checkForName(word):
@@ -93,6 +92,7 @@ def checkForName(word):
         isName = False
     return isName
 
+'''is this method actually used anywhere yet???'''
 def checkForLocation(word):
     isLocation = False
     if (checkFile(word, locFile)):

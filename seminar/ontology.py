@@ -3,43 +3,59 @@ from nltk.corpus import wordnet as wn
 
 class Ontology():
     def __init__(self) :
+        #keywords
         self.histWords = ['history']
         self.chemWords = ['chemistry', 'elements']
         self.phyWords = ['physics', 'nasa', 'superposition', 'space']
         self.bioWords = ['biology', 'human']
         self.mathsWords = ['maths', 'mathematical', 'graphs']
-        self.robWords = ['robot', 'robots', 'robotics', 'robotic',  'autonomou']
+        self.robWords = ['robot', 'robots', 'robotics', 'robotic',  'autonomous']
         self.aiWords = ['ai', 'machine', 'arfiticial', 'intelligence']
         self.hciWords = ['hci', 'human']
-        self.visWords = ['vision']
+        self.visWords = ['vision', 'graphics']
         self.techWords = ['computing', 'programming', 'apple', 'technology', 'computer science', 'computer', 'algorithms']
-        self.pureWords = ['engineering']
+        self.pureWords = ['engineering', 'buildings', 'steel']
         self.talkWords = ['talk', 'talks', 'environmental']
         self.miscWords = []
+        #items
+        self.history = list()
+        self.chem = list()
+        self.phy = list()
+        self.bio = list()
+        self.maths = list()
+        self.robotics = list()
+        self.AI = list()
+        self.HCI = list()
+        self.vision = list()
+        self.general_computing = list()
+        self.pure = list()
+        self.talks = list()
+        self.misc = list()
+        #ontology tree
         self.ontology = {
             'Top' : {
                 "Arts": {
-                    "History": self.histWords, 'talks': list()
+                    "History": self.histWords, 'talks': self.history
                  },
                  "Engineering": {
                      "Computing": {
-                        "Robotics": self.robWords, 'talks': list(),
-                        "AI": self.aiWords, 'talks': list(),
-                        "HCI": self.hciWords, 'talks': list(),
-                        "Vision": self.visWords, 'talks': list(),
-                        "General_computing": self.techWords, 'talks': list(),
+                        "Robotics": self.robWords, 'talks': self.robotics,
+                        "AI": self.aiWords, 'talks': self.AI,
+                        "HCI": self.hciWords, 'talks': self.HCI,
+                        "Vision": self.visWords, 'talks': self.vision,
+                        "General_Computing": self.techWords, 'talks': self.general_computing
                       },    
-                     "Pure": self.pureWords, 'talks': list()
+                     "Pure": self.pureWords, 'talks': self.pure
                  },
                  "Science": {
-                     "Physics": self.phyWords, 'talks': list(),
-                     "Biology": self.bioWords, 'talks': list(),
-                     "Chemistry": self.chemWords, 'talks': list(),
-                     "Mathematics": self.mathsWords, 'talks': list()
+                     "Physics": self.phyWords, 'talks': self.phy,
+                     "Biology": self.bioWords, 'talks': self.bio,
+                     "Chemistry": self.chemWords, 'talks': self.chem,
+                     "Mathematics": self.mathsWords, 'talks': self.maths
                  },
                  "Other": {
-                      "Talks": self.talkWords, 'talks': list(),
-                      "Misc": self.miscWords, 'talks': list()
+                      "Talks": self.talkWords, 'talks': self.talks,
+                      "Misc": self.miscWords, 'talks': self.misc
                  }
              }
         }
@@ -73,18 +89,8 @@ def check (self, word) :
     else :
         return ("unknown")
 
-def trasverse(self, location=None, key=None):
-    if location is None :
-        location = self.ontology
-    keys = location.keys()
-    if 'topic_words' in keys :
-        self.traversal_info[key] = location[key]
-        return
-    for key in keys :
-        self.traverse(location[key], key)
-    return
-
 def returnSecond(a) :
+    #return second from a tuple
     toReturn = ""
     for val in a :
         dis, thisOne, dis2 = val
@@ -131,9 +137,8 @@ def wordNet(words, cat):
                                 similarity = similarity / 4
                             totalSum = totalSum + similarity
                             index = index + 1
-    print("TOTAL SUM : " + str(totalSum))
-    print(cat)
-    if(totalSum > 0.5):
+    print("Total sum : " + str(totalSum))
+    if(totalSum >= 0.5):
         return cat
     else :
         return 'Misc'
@@ -159,6 +164,7 @@ def analyseTags(tagList, prior) :
     numt = listoftags.count("tech")
     numpure = listoftags.count("pure")
     numtalk = listoftags.count("talks")
+    #dictionary = category: number of occurances in sentence
     d = {'history': numh, 'chemistry': numc, 'biology': numb, 'physics': nump,
          'maths': numm, 'robotics': numr, 'AI': numa, 'HCI': numhci,
          'vision': numv, 'tech': numt, 'pure': numpure, 'talks': numtalk}
@@ -223,6 +229,51 @@ def openTextFile(self, tfid):
             tag = 'Misc'
         return (str(tag))
 
+def cats(self, cat, textFile):
+    #add text file to correct category list
+    if cat == "history":
+        self.history.append(textFile)
+    elif cat == "chemistry":
+        self.chem.append(textFile)
+    elif cat == "physics" :
+        self.phy.append(textFile)
+    elif cat == "biology":
+        self.bio.append(textFile)
+    elif cat == "maths":
+        self.maths.append(textFile)
+    elif cat == "robotics":
+        self.robotics.append(textFile)
+    elif cat == "AI":
+        self.AI.append(textFile)
+    elif cat == "HCI":
+        self.HCI.append(textFile)
+    elif cat == "vision":
+        self.vision.append(textFile)
+    elif cat == "tech":
+        self.general_computing.append(textFile)
+    elif cat == "pure":
+        self.pure.append(textFile)
+    elif cat == "talks":
+        self.talks.append(textFile)
+    else :
+        self.misc.append(textFile)
+
+def printTree(self):
+    #print
+    print("Arts/History: " + str(self.history) + "\n")
+    print("Science/Chemistry: " + str(self.chem) + "\n")
+    print("Science/Physics: " + str(self.phy)+ "\n")
+    print("Science/Biology: " + str(self.bio)+ "\n")
+    print("Science/Maths: " + str(self.maths)+ "\n")
+    print("Engineering/Computing/Robotics: " + str(self.robotics)+ "\n")
+    print("Engineering/Computing/AI: " + str(self.AI)+ "\n")
+    print("Engineering/Computing/HCI: " + str(self.HCI)+ "\n")
+    print("Engineering/Computing/Vision: " + str(self.vision)+ "\n")
+    print("Engineering/Computing/General_Computing: " + str(self.general_computing)+ "\n")
+    print("Engineering/Pure: " + str(self.pure)+ "\n")
+    print("Other/Talks: " + str(self.talks)+ "\n")
+    print("Other/Misc: " + str(self.misc)+ "\n")
+    
 def main() :
     #main method - this is to be run from command line
     ontology = Ontology()
@@ -232,8 +283,11 @@ def main() :
         print("----------------- " +str(textFile)+ " -----------------")
         category = openTextFile(ontology, textFile)
         print(category)
+        cats(ontology, category, textFile)
         if (textFile == 484) :
             notTagged = False
         else :
             textFile = textFile + 1
+    print("--------------------------- Print Tree ---------------------------")
+    printTree(ontology)
         
