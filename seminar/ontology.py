@@ -4,15 +4,16 @@ class Ontology():
     def __init__(self) :
         self.histWords = ['history']
         self.chemWords = ['chemistry', 'elements']
-        self.phyWords = ['physics', 'NASA']
+        self.phyWords = ['physics', 'nasa', 'superposition', 'space']
         self.bioWords = ['biology', 'human']
-        self.robWords = ['robot', 'robots', 'robotics']
-        self.aiWords = ['AI', 'machine', 'arfiticial', 'intelligence']
-        self.hciWords = ['HCI', 'human']
+        self.mathsWords = ['maths', 'mathematical', 'graphs']
+        self.robWords = ['robot', 'robots', 'robotics', 'robotic',  'autonomou']
+        self.aiWords = ['ai', 'machine', 'arfiticial', 'intelligence']
+        self.hciWords = ['hci', 'human']
         self.visWords = ['vision']
-        self.techWords = ['computing', 'technology', 'computer science', 'computer']
+        self.techWords = ['computing', 'programming', 'apple', 'technology', 'computer science', 'computer', 'algorithms']
         self.pureWords = ['engineering']
-        self.talkWords = ['talk', 'talks', "environmental"]
+        self.talkWords = ['talk', 'talks', 'environmental']
         self.miscWords = []
         self.ontology = {
             'Top' : {
@@ -25,14 +26,15 @@ class Ontology():
                         "AI": self.aiWords, 'talks': list(),
                         "HCI": self.hciWords, 'talks': list(),
                         "Vision": self.visWords, 'talks': list(),
-                        "Tech": self.techWords, 'talks': list(),
+                        "General_computing": self.techWords, 'talks': list(),
                       },    
                      "Pure": self.pureWords, 'talks': list()
                  },
                  "Science": {
                      "Physics": self.phyWords, 'talks': list(),
                      "Biology": self.bioWords, 'talks': list(),
-                     "Chemistry": self.chemWords, 'talks': list()
+                     "Chemistry": self.chemWords, 'talks': list(),
+                     "Mathematics": self.mathsWords, 'talks': list()
                  },
                  "Other": {
                       "Talks": self.talkWords, 'talks': list(),
@@ -50,6 +52,8 @@ def check (self, word) :
         print ("physics")
     elif word in self.bioWords :
         print ("biology")
+    elif word in self.mathsWords :
+        print ("maths")
     elif word in self.robWords :
         print ("robotics")
     elif word in self.aiWords :
@@ -78,28 +82,47 @@ def trasverse(self, location=None, key=None):
         self.traverse(location[key], key)
     return
 
-
+def returnSecond(a) :
+    toReturn = ""
+    for val in a :
+        dis, thisOne, dis2 = val
+        toReturn = thisOne
+    return thisOne
+        
 def openTextFile(self, tfid):
     tags = ["stime", "/stime", "<stime>", "</stime>","etime", "/etime", "<etime>", "</etime>", "sentence", "paragraph",
             "speaker", "location", "/sentence", "/paragraph", "/speaker", "/location", ">", "<", "<speaker>", "</speaker>",
             "<location>", "</location>", "<paragraph>", "</paragraph>", "<sentence>", "</sentence>"]
     typeReg = 'Type\s:\s([A-z]*.?){3}'
+    topicReg = 'Topic\s:(\s)*(([A-z]*\s)*)'
     path = "my_seminars_tagged/" + str(tfid) + ".txt"
     with open (path, "r") as f :
         corpus = f.read()
         #print(corpus)
         print("----------------- " +str(tfid)+ " -----------------")
+        a = re.findall(topicReg, corpus)
+        if (a == []):
+            pass;
+        else :
+            a = returnSecond(a)
+            print(a)
+            words = a.split(" ")
+            for  word in words :
+                print(word) 
+                check(self, word.lower())
+                print("-----")
         b = re.findall(typeReg, corpus)
         punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
         etype =  str(b[0]).strip()
         emailType = ""
+        #strip any random punctuation
         for char in etype:
             if char not in punctuations:
                 emailType = emailType + char
 
-        #strip any random punctuation
         print(emailType)
-        check (self, emailType)
+        check (self, emailType.lower())
+        print("-------- end of  " + str(tfid) + " ---------------")
 '''
         a = corpus.split(" ")
         for word in a:
