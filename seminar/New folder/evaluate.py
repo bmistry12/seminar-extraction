@@ -25,18 +25,18 @@ def removeSecond(taggedSet) :
 
 def getTP(actual, generated):
     count = 0
-    for elem in generated:
-        if elem.strip() in actual:
+    for elem in generated :
+        if elem in actual :
             count = count + 1
     return count
-        
+
 def getTN(actual, generated):
-    return 0
+    return 1
 
 def getFP(actual, generated):
     count = 0
     for elem in generated :
-        if elem.strip() not in actual :
+        if elem not in actual :
             count = count + 1
     return count
 
@@ -44,18 +44,12 @@ def getFP(actual, generated):
 def getFN(actual, generated):
     count = 0
     for elem in actual :
-        if elem.strip() not in generated :
+        if elem not in generated :
             count = count + 1
     return count
 
-def strip(theList):
-    index = 0
-    for e in theList:
-        theList[index] = e.strip()
-    return theList
-
 notEnd = True
-textFileID = 393
+textFileID = 301
 overallAccuracy = 0
 maxAcc = 0
 overallSpeakAcc = 0
@@ -68,37 +62,28 @@ overallF = 0
 fileNumber = 0
 
 while(notEnd) :
-    #actual
     path = "seminar_test_data/test_tagged/" + str(textFileID) + ".txt"
     tagged = nltk.data.load(path)
-    ataggedSpeakers = re.findall(spReg, tagged)
-    ataggedLoc = re.findall(locReg, tagged)
-    ataggedSTime = re.findall(sTimeReg, tagged)
-    ataggedETime = re.findall(eTimeReg, tagged)
-    removeSecond(ataggedSpeakers)
-    removeSecond(ataggedLoc)
-    removeSecond(ataggedSTime)
-    removeSecond(ataggedETime)
-    taggedSpeakers = strip(ataggedSpeakers)
-    taggedLoc = strip(ataggedLoc)
-    taggedSTime = strip(ataggedSTime)
-    taggedETime = strip(ataggedETime)
-    #generated
+    taggedSpeakers = re.findall(spReg, tagged)
+    taggedLoc = re.findall(locReg, tagged)
+    taggedSTime = re.findall(sTimeReg, tagged)
+    taggedETime = re.findall(eTimeReg, tagged)
+    removeSecond(taggedSpeakers)
+    removeSecond(taggedLoc)
+    removeSecond(taggedSTime)
+    removeSecond(taggedETime)
+
     path = "my_seminars_tagged/" + str(textFileID) + ".txt"
     tagged = nltk.data.load(path)
-    aSpeakers = re.findall(spReg, tagged)
-    aLocation = re.findall(locReg, tagged)
-    aSTime = re.findall(sTimeReg, tagged)
-    aETime = re.findall(eTimeReg, tagged)
-    removeSecond(aSpeakers)
-    removeSecond(aLocation)
-    removeSecond(aSTime)
-    removeSecond(aETime)
-    Speakers = strip(aSpeakers)
-    Location = strip(aLocation)
-    STime = strip(aSTime)
-    ETime = strip(aETime)
-    
+    Speakers = re.findall(spReg, tagged)
+    Location = re.findall(locReg, tagged)
+    STime = re.findall(sTimeReg, tagged)
+    ETime = re.findall(eTimeReg, tagged)
+    removeSecond(Speakers)
+    removeSecond(Location)
+    removeSecond(STime)
+    removeSecond(ETime)
+
     print(taggedSpeakers)
     print(taggedLoc)
     print(taggedSTime)
@@ -109,75 +94,66 @@ while(notEnd) :
     print(STime)
     print(ETime)
     print("***")
-
-    speakAcc = 0
-    locAcc = 0
-    stimeAcc = 0 
-    etimeAcc = 0
-    precision = 0
-    recall = 0
-    fmes = 0
     
-    if (taggedSpeakers == [] and Speakers == []):
-        speakAcc = 1
-    else:
-        d = (getTP(taggedSpeakers, Speakers) + getFP(taggedSpeakers, Speakers) + getFN(taggedSpeakers, Speakers))
-        speakAcc = getTP(taggedSpeakers, Speakers) / d
-
-    if (taggedLoc == [] and Location == []):
-        locAcc = 1
+    speakStuff =(getTP(taggedSpeakers, Speakers) + getTN(taggedSpeakers, Speakers) + getFP(taggedSpeakers, Speakers) + getFN(taggedSpeakers, Speakers))
+    if speakStuff > 0 :
+        accSpeakers = (getTP(taggedSpeakers, Speakers) + getTN(taggedSpeakers, Speakers)) / speakStuff
     else :
-        d = (getTP(taggedLoc, Location) + getFP(taggedLoc, Location) + getFN(taggedLoc, Location))
-        locAcc = getTP(taggedLoc, Location) / d
-
-    if (taggedSTime == [] and STime == []):
-        stimeAcc = 1
+        accSpeakers = 0
+    locStuff = (getTP(taggedLoc, Speakers) + getTN(taggedLoc, Speakers) + getFP(taggedLoc, Speakers) + getFN(taggedLoc, Speakers))
+    if locStuff > 0 :
+        accLoc = (getTP(taggedSpeakers, Speakers) + getTN(taggedLoc, Speakers)) / locStuff
     else :
-        d = (getTP(taggedSTime, STime) + getFP(taggedSTime, STime) + getFN(taggedSTime, STime))
-        stimeAcc = getTP(taggedSTime, STime) / d
-
-    if (taggedETime == [] and ETime == []):
-        etimeAcc = 1
+        accLoc = 0
+    stimeStuff = (getTP(taggedSTime, Speakers) + getTN(taggedSTime, Speakers) + getFP(taggedSTime, Speakers) + getFN(taggedSTime, Speakers))
+    if stimeStuff > 0 :
+        accSTime = (getTP(taggedSpeakers, Speakers) + getTN(taggedSTime, Speakers)) / stimeStuff
     else :
-        d = (getTP(taggedETime, ETime) + getFP(taggedETime, ETime) + getFN(taggedETime, ETime))
-        etimeAcc = getTP(taggedETime, ETime) / d
+        accSTime = 0
+    etimeStuff = (getTP(taggedETime, Speakers) + getTN(taggedETime, Speakers) + getFP(taggedETime, Speakers) + getFN(taggedETime, Speakers))
+    if etimeStuff > 0 :
+        accETime = (getTP(taggedSpeakers, Speakers) + getTN(taggedETime, Speakers)) / etimeStuff
+    else :
+        accETime = 0
 
     TP = getTP(taggedSpeakers, Speakers) + getTP(taggedLoc, Location) + getTP(taggedSTime, STime) + getTP(taggedETime, ETime) 
+    TN = getTN(taggedSpeakers, Speakers) + getTN(taggedLoc, Location) + getTN(taggedSTime, STime) + getTN(taggedETime, ETime) 
     FP = getFP(taggedSpeakers, Speakers) + getFP(taggedLoc, Location) + getFP(taggedSTime, STime) + getFP(taggedETime, ETime) 
     FN = getFN(taggedSpeakers, Speakers) + getFN(taggedLoc, Location) + getFN(taggedSTime, STime) + getFN(taggedETime, ETime) 
 
-    accuracy = TP / (TP + FP + FN)
-    TPClass = len(Speakers) + len(Location) + len(STime) + len(ETime)
-    if TPClass > 0 and TP > 0:
-        precision = TP / TPClass
+    accuracy = (TP + TN) / (TP + TN + FP + FN)
+    TPClass = (len(Speakers) + len(Location) + len(STime) + len(ETime))
+    if (TPClass > 0 ):
+        precision = (TP) / TPClass
     else :
         precision = 0
     TPCorpus = len(taggedSpeakers) + len(taggedLoc) + len(taggedSTime) + len(taggedETime)
-    if (TPCorpus > 0 and TP > 0):
+    if (TPCorpus > 0):
         recall = TP / TPCorpus
     else :
-        recall = 0 
-    if ((precision + recall ) > 0):
-        fmes = 2 * (precision * recall) / (precision + recall)
+        recall = 0
+    if (precision + recall > 0 ):
+        fmes =  2 * (precision * recall) / (precision + recall)
     else :
         fmes = 0
+    if (accuracy > maxAcc):
+        maxAcc = accuracy
+    
     print("accuracy for text file " + str(textFileID) + ": " + str(accuracy*100))
-    print("Speaker: " + str(speakAcc))
-    print("Location:" + str(locAcc))
-    print("STime " + str(stimeAcc))
-    print("ETime " + str(etimeAcc))
-    print("Precision: " + str(precision))
-    print("Recall: " + str(recall))
-    print("F measure: " + str(fmes))
+    print("Speaker accuracy " + str(accSpeakers*100))
+    print("Location accuracy " + str(accLoc*100))
+    print("Start Time accuracy " + str(accSTime*100))
+    print("End Time accuracy " + str(accETime*100))
+    print("Precision " + str(precision*100))
+    print("Recall " + str(recall * 100))
+    print("F Measure " + str(fmes))
     print("--------------------------------------------------")
-
-    #add to overall values
     fileNumber = fileNumber + 1
     overallAccuracy = overallAccuracy + accuracy
-    overallSpeakAcc = overallSpeakAcc + speakAcc
-    overallLocAcc = overallLocAcc + locAcc
-    overallSTimeAcc = overallSTimeAcc + stimeAcc
-    overallETimeAcc = overallETimeAcc + etimeAcc
+    overallSpeakAcc = overallSpeakAcc + accSpeakers
+    overallLocAcc = overallLocAcc + accLoc
+    overallSTimeAcc = overallSTimeAcc + accSTime
+    overallETimeAcc = overallETimeAcc + accETime
     overallPrec = overallPrec + precision
     overallRec = overallRec + recall
     ovareallF = overallF + fmes
@@ -185,7 +161,7 @@ while(notEnd) :
         notEnd = False
     else :
         textFileID = textFileID + 1
-        
+
 print("Overall Accuracy : " + str(overallAccuracy * 100 / fileNumber))
 print("Speaker Accuracy : " + str(overallSpeakAcc * 100 / fileNumber))
 print("Location Accuracy : " + str(overallLocAcc * 100 / fileNumber))
@@ -195,3 +171,13 @@ print("Highest Overall Accuracy: " + str(maxAcc*100))
 print("Precision: " + str(overallPrec*100 / fileNumber))
 print("Recall: " + str(overallRec*100 / fileNumber))
 print("F: " + str(overallF*100 / fileNumber))
+
+'''
+precision = (TPclass) / (classified)
+recall = (TPclass) / (TP_in_corpus)
+F =  2 * (precision * recall) / (precision + recall)
+
+print("precision: " + str(precision))
+print("recall: " + str(recall))
+print("F: " + str(F))
+'''
