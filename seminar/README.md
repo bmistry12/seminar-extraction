@@ -15,30 +15,42 @@ Class Files:
     
 
 
-    H
+    Gets the next file that needs to be tagged from (seminar_test_data/test_untagged).
+    It tags the sentences and paragraphs in the file and tokenizes it.
+    Imported into all classes that require the tokens of the email
+
+* posTagger.py
+
+
+
+    Part Of Speech Tagger - trained on the Brown Corpus using the brown corpus. 
+    Uses a bigram tagger, with a unigram back off, to tag each token of the corpus.
+    I save and load the pos tagger between the classes using pickle, creating the pos_tagger.pkl file
+    
+* ner.py
+
+
+    Named Entity Recognition - Identify names and tags them if required
+    Uses wikification.py
+    
+* wikification.py
+
+
+    Uses the Wikipedia API to compare certain entires against wikipedia 
+    Used to help identify names and filter out company names
     
 * seminars.py
 
 
 
-    H   
-* ner.py
-
-
-    H
-* posTagger.py
-
-
-
-    H
-* wikification.py
-
-
-    H
+    This is the main class file.
+    Tokens are POS Tagged, analysed with the NER and tagged accordingly
+    
 * evaluate.py
 
 
-    H
+    Evaluates my tagged data (my_seminars_tagged) against the actual tagged data (seminars_test_data/test_tagged).
+    Calculates accuracy, precision and f measure.
 
 ## 2) Ontology Construction
 Uses ontology.py
