@@ -14,6 +14,8 @@
     
     Discourse – The study of linguistic units larger than a single utterance
     
+    Parsing means taking an input and producing some sort of structure for it
+    
     We can use POS Tagging to resolve ambiguities in meaning 
     
     Finite State Automata (FSA's) are useful to represent acceptable string
@@ -37,8 +39,22 @@
     
 * Morphology and FSTs
     
-    Parsing means taking an input and producing some sort of structure for it
+    Morphology is the study of the way words are built up from smaller units (morphemes)
     
+    There are two classes of morphemes -> Affixes and Stems
+    
+    Affixes = prefixes, suffixes, infixes, and circumfixes.
+              Prefixes precede the stem, suffixes follow the stem, circumfixes do both, and infixes are inserted inside the stem
+    
+    Morphemes can be categorised as either inflection (same class/meaning) or derivation ones (different class/meaning)
+    
+    * Inflection Morphology
+        Morphological Form Classes Regularly Inflected Verbs
+        stem walk merge try map
+        -s form walks merges tries maps
+        -ing participle walking merging trying mapping
+        Past form or -ed participle walked merged tried mapped
+    * Stemming (going from Foxes to Fox)  
     
 
 
