@@ -15,7 +15,7 @@ sents = ""
 mypath = ""
 print("Enter the number of the file you would like to tag : ");
 userFile = input()
-mypath = "seminar_test_data/test_untagged/" + userFile + ".txt"  
+mypath = "../seminar_test_data/test_untagged/" + userFile + ".txt"  
 #regex for headers
 header1 = '<[0-9].+([a-z]{2}[0-9]{2})[+]{1}[@]{1}[A-z].*[0-9]{1}>'
 header2 = '<[0-9].+[a-z]{3}[+]{1}[@]{1}[A-z].*[0-9]{1}>'
@@ -72,7 +72,7 @@ def getTokens() :
     return tokens
 
 def outputNewFile(contents):
-    newPath = "my_seminars_tagged/" + userFile + ".txt"
+    newPath = "../my_seminars_tagged/" + userFile + ".txt"
     print("New tagged version being saved to " + newPath)
     f = open(newPath, "w+")
     f.write(contents)

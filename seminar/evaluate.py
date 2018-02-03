@@ -4,7 +4,8 @@ import nltk
 evaluate my tagged version against the actual tagged version
 
 TP correctly retrieved instances
-TN correctly ignored non-instances - for this assignment i will ignore this
+TN correctly ignored non-instances - these have been ignored for this assignment
+                                     as they are hard to measure
 FP incorrectly classed instances
 FN actual instances which are missed.
 '''

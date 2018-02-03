@@ -197,7 +197,7 @@ def openTextFile(self, tfid):
             "<location>", "</locamation>", "<paragraph>", "</paragraph>", "<sentence>", "</sentence>"]
     typeReg = 'Type\s:\s([A-z]*.?){3}'
     topicReg = 'Topic\s:(\s)*(([A-z]*\s)*)'
-    path = "my_seminars_tagged/" + str(tfid) + ".txt"
+    path = "../my_seminars_tagged/" + str(tfid) + ".txt"
     with open (path, "r") as f :
         corpus = f.read()
         #print(corpus)

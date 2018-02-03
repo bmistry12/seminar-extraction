@@ -14,7 +14,7 @@ spReg = '<\sspeaker\s>\s([!-z]+\s)+</\sspeaker\s>'
 locReg = '<\slocation\s>\s([!-z]+\s)+</\slocation\s>'
 
 #read from training data
-trainPath = "seminars_training"
+trainPath = "../seminars_training"
 onlyfiles = [f for f in listdir(trainPath) if isfile(join(trainPath, f))]
 corpus_root = trainPath
 training = nltk.corpus.reader.plaintext.PlaintextCorpusReader(corpus_root, onlyfiles)
@@ -33,7 +33,7 @@ def getSpeakers() :
             s = (speaker.strip('< speaker >')).strip('</ speaker >') #strip of tags
             speakers.append(s)
     #add to speakers.txt text file
-    speakerF = open('training_data/speakers.txt', 'w')
+    speakerF = open('../training_data/speakers.txt', 'w')
     for a in speakers :
         speakerF.write('%s\n' % a)
     speakerF.close()
@@ -50,7 +50,7 @@ def getLocation() :
             p = (place.strip('< location >')).strip('</ location >')
             location.append(p)
     #add to location.txt text file
-    locF = open('training_data/location.txt', 'w')
+    locF = open('../training_data/location.txt', 'w')
     for a in location :
         locF.write('%s\n' % a)
     locF.close()

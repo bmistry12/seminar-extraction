@@ -10,8 +10,8 @@ months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augus
 title = ['Mr', 'Dr', 'Prof', 'Professor', 'Mrs', 'Miss', 'Ms']
 
 numReg = '[0-9]+'
-locFile = "training_data/location.txt"
-speakFile = "training_data/speakers.txt"
+locFile = "../training_data/location.txt"
+speakFile = "../training_data/speakers.txt"
 knownLocation = ""
 
 #tags any time - uses regex
@@ -76,7 +76,7 @@ def checkForName(word):
     if ((word in daysOfWeek) or (word in months)) :
         #filter out known words that will be passed through
         isName = False
-    elif (checkFile(word, "res/names.male") or checkFile(word, "res/names.female") or checkFile(word, "res/names.family")):
+    elif (checkFile(word, "../res/names.male") or checkFile(word, "../res/names.female") or checkFile(word, "../res/names.family")):
         #word is in file of names
         isName = True
     elif (word in title) :
